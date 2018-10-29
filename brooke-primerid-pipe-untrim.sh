@@ -146,7 +146,7 @@ echo "Ending Step 10"
 ## Step 11 ##
  # Calculates LD for all variants above a certain frequency level
 
-#echo "Starting Step 11"
+echo "Starting Step 11"
 
 cd ../step10/
 for v in 0.005; do for i in ${line}; do for n in 0 1 2 3; \
@@ -155,7 +155,7 @@ calculate_linkage_disequilibrium.pl $sample ${sample/.variants.minfreq0.xls/}.cl
 ${sample/.variants.minfreq0.xls/}.cleanpeptides.txt --variant_threshold $v  \
 --group_id Amplicon-${n} --label Sample-${i} --save ../step11/; done; done; done
 
-#echo "Ending Step 11"
+echo "Ending Step 11"
 
 
 
