@@ -28,7 +28,7 @@ if [ ! -f data/genome/HA_PR8.fa.bwt ]; then
 	bwa index data/genome/HA_PR8.fa
 fi
 
-bwa mem -t $PBS_NUM_PPN data/genome/HA_PR8.fa data/raw-seq/${line}_L001_R1_001.fastq \
+bwa mem -t $SLURM_CPUS_PER_TASK data/genome/HA_PR8.fa data/raw-seq/${line}_L001_R1_001.fastq \
 data/raw-seq/${line}_L001_R2_001.fastq | samtools view -bS - > results/untrim-primerid/step3/${line}.bam \
 
 java -Xmx2G -jar src/primer-id-progs/picard.jar SortSam I=results/untrim-primerid/step3/${line}.bam \
@@ -46,7 +46,7 @@ echo "Starting Step 4"
 module load PANDAseq/2.11-IGB-gcc-4.9.4
 
 pandaseq -f data/raw-seq/${line}_L001_R1_001.fastq -r data/raw-seq/${line}_L001_R2_001.fastq \
--F -T $PBS_NUM_PPN -u results/untrim-primerid/step4/${line}_pandaseq_unaligned.fastq > \
+-F -T $SLURM_CPUS_PER_TASK -u results/untrim-primerid/step4/${line}_pandaseq_unaligned.fastq > \
 results/untrim-primerid/step4/${line}.contigs.fastq
 
 module unload PANDAseq/2.11-IGB-gcc-4.9.4
